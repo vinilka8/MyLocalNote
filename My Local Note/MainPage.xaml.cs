@@ -39,6 +39,7 @@ namespace My_Local_Note
             MapService.ServiceToken = "zzA11mz1oON29_nJ4B6OEQ";
             this.NavigationCacheMode = NavigationCacheMode.Required;
             geolocator = new Geolocator();
+            updateMyMap();
             
         }
   
@@ -58,6 +59,23 @@ namespace My_Local_Note
             // this event is handled for you.
         }
 
+        private async void updateMyMap()
+        {
+            Geolocator geolocator = new Geolocator();
+            geolocator.DesiredAccuracyInMeters = 10;
+
+            Geoposition position = await geolocator.GetGeopositionAsync(
+                TimeSpan.FromMinutes(1),
+                TimeSpan.FromSeconds(30));
+
+            var myGPSCenter = new Geopoint( new BasicGeoposition { 
+                Latitude = position.Coordinate.Point.Position.Latitude, 
+                Longitude = position.Coordinate.Point.Position.Longitude });
+
+            await myMap.TrySetViewAsync(myGPSCenter, 17D);
+
+        }
+
         private async void myLocation_Click(object sender, RoutedEventArgs e)
         {               
             try
@@ -72,12 +90,14 @@ namespace My_Local_Note
                 geolocator.DesiredAccuracy = PositionAccuracy.High;
                 geolocator.MovementThreshold = 1;
 
-                var position = await geolocator.GetGeopositionAsync();
+                var position = await geolocator.GetGeopositionAsync().AsTask(token);
                 await myMap.TrySetViewAsync(position.Coordinate.Point, 18D);
-                Geoposition g = await geolocator.GetGeopositionAsync().AsTask(token);
-                var pos = new Geopoint(new BasicGeoposition { Latitude = g.Coordinate.Point.Position.Latitude, Longitude = g.Coordinate.Point.Position.Longitude });
+                //Geoposition g = await geolocator.GetGeopositionAsync().AsTask(token);
+                var pos = new Geopoint(new BasicGeoposition { Latitude = position.Coordinate.Point.Position.Latitude, Longitude = position.Coordinate.Point.Position.Longitude });
+                
                 DrawManIcon(pos);
 
+                locator.PositionChanged += Location_PositionChanged;
                 mySlider.Value = myMap.ZoomLevel;
             }
             catch
@@ -85,6 +105,9 @@ namespace My_Local_Note
 
             }
         }
+
+       
+        
 
         private void DrawManIcon(Geopoint pos)
         {
@@ -102,6 +125,27 @@ namespace My_Local_Note
                 myMap.MapElements.Add(manIcon);
             }
             manIcon.Location = pos;
+        }
+
+
+        async void Location_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        {
+
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    //gives us a position that we can use
+                    Geoposition position = args.Position;
+                    //LatitudeValue.Text = position.Coordinate.Latitude.ToString();
+                    //LongitudeValue.Text = position.Coordinate.Longitude.ToString();
+                    var pos = new Geopoint(new BasicGeoposition
+                    {
+                        Latitude = position.Coordinate.Point.Position.Latitude,
+                        Longitude = position.Coordinate.Point.Position.Longitude
+                    });
+                    DrawManIcon(pos);
+                }
+                );
         }
 
         private void TakeNote_Click(object sender, RoutedEventArgs e)
@@ -122,6 +166,13 @@ namespace My_Local_Note
         private void mySlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             if (myMap != null) myMap.ZoomLevel = e.NewValue;
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            //takes the app stuff out of memory when exited
+            geolocator.PositionChanged -= Location_PositionChanged;
+            base.OnNavigatingFrom(e);
         }
     }
 }
