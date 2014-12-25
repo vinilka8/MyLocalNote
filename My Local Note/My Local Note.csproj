@@ -109,14 +109,13 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Logos\logo150x150.scale-100.png" />
-    <Content Include="Assets\Logos\logo310x150.scale-100.png" />
-    <Content Include="Assets\Logos\logo99x99.scale-140.png" />
+    <Content Include="Assets\Logos\logo150x150.png" />
+    <Content Include="Assets\Logos\logo310x150.png" />
+    <Content Include="Assets\Logos\logo99x99.png" />
     <Content Include="Assets\Logos\logoBadge58x58.scale-240.png" />
     <Content Include="Assets\Logos\logoSquad106x106.scale-240.png" />
     <Content Include="Assets\Logos\LogoStor120x120.scale-240.png" />
     <Content Include="Assets\Logos\splash480x800.png" />
-    <Content Include="Assets\Logos\SplashScreen.scale-240.png" />
     <Content Include="Assets\myPos.png" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>

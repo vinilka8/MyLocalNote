@@ -91,7 +91,7 @@ namespace My_Local_Note
                 geolocator.MovementThreshold = 1;
 
                 var position = await geolocator.GetGeopositionAsync().AsTask(token);
-                await myMap.TrySetViewAsync(position.Coordinate.Point, 18D);
+                await myMap.TrySetViewAsync(position.Coordinate.Point, 17D);
                 //Geoposition g = await geolocator.GetGeopositionAsync().AsTask(token);
                 var pos = new Geopoint(new BasicGeoposition { Latitude = position.Coordinate.Point.Position.Latitude, Longitude = position.Coordinate.Point.Position.Longitude });
                 
