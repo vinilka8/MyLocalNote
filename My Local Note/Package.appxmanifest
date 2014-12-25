@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="46543vinilka8.MyLocalNote" Publisher="CN=28D23F75-7FDC-4407-A5C7-F41526357693" Version="1.1.0.3" />
+  <Identity Name="46543vinilka8.MyLocalNote" Publisher="CN=28D23F75-7FDC-4407-A5C7-F41526357693" Version="1.1.0.1" />
   <mp:PhoneIdentity PhoneProductId="dc835959-9a04-4822-a5d0-4463f7be644a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>My Local Note</DisplayName>
     <PublisherDisplayName>vinilka8</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\Logos\LogoStor120x120.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.3.1</OSMinVersion>
@@ -16,8 +16,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="My_Local_Note.App">
-      <m3:VisualElements DisplayName="My Local Note" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="My Local Note" ForegroundText="light" BackgroundColor="transparent">
-        <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
+      <m3:VisualElements DisplayName="My Local Note" Square150x150Logo="Assets\Logos\logo150x150.png" Square44x44Logo="Assets\Logos\logoSquad106x106.png" Description="My Local Note" ForegroundText="light" BackgroundColor="transparent">
+        <m3:LockScreen Notification="badge" BadgeLogo="Assets\Logos\logoBadge58x58.png" />
+        <m3:DefaultTile Wide310x150Logo="Assets\Logos\logo310x150.png" Square71x71Logo="Assets\Logos\logo99x99.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
       </m3:VisualElements>

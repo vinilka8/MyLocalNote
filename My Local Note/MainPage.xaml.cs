@@ -5,10 +5,12 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Devices.Geolocation;
+using Windows.Devices.Geolocation.Geofencing;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Services.Maps;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
@@ -29,6 +31,7 @@ namespace My_Local_Note
     {
         // PhoneProductId="d25ccc27-4f2c-4dba-b315-97764ae1fc49"
         Geolocator geolocator;
+        private List<ManeuverDescription> maneuverList = new List<ManeuverDescription>();
 
         public MainPage()
         {
@@ -55,8 +58,8 @@ namespace My_Local_Note
             // this event is handled for you.
         }
 
-        async void myLocation_Click(object sender, RoutedEventArgs e)
-        {
+        private async void myLocation_Click(object sender, RoutedEventArgs e)
+        {               
             try
             {
                 CancellationTokenSource cts;
@@ -64,26 +67,16 @@ namespace My_Local_Note
                 CancellationToken token = cts.Token;
 
                 var locator = new Geolocator();
-                geolocator.DesiredAccuracyInMeters = 30;
-                geolocator.MovementThreshold = 100;
+
+                geolocator.DesiredAccuracyInMeters = 10;
                 geolocator.DesiredAccuracy = PositionAccuracy.High;
+                geolocator.MovementThreshold = 1;
+
                 var position = await geolocator.GetGeopositionAsync();
                 await myMap.TrySetViewAsync(position.Coordinate.Point, 18D);
-                //geolocator.PositionChanged += Location_PositionChanged;
-
-
                 Geoposition g = await geolocator.GetGeopositionAsync().AsTask(token);
-                Geopoint geopoint = new Geopoint(new BasicGeoposition()
-                {
-                    Latitude = g.Coordinate.Point.Position.Latitude,
-                    Longitude = g.Coordinate.Point.Position.Longitude
-
-
-
-                });
-                myMap.Center = geopoint;
-                myMap.ZoomLevel = 18;
-                DrawCarIcon(geopoint);
+                var pos = new Geopoint(new BasicGeoposition { Latitude = g.Coordinate.Point.Position.Latitude, Longitude = g.Coordinate.Point.Position.Longitude });
+                DrawManIcon(pos);
 
                 mySlider.Value = myMap.ZoomLevel;
             }
@@ -93,22 +86,22 @@ namespace My_Local_Note
             }
         }
 
-        private void DrawCarIcon(Geopoint pos)
+        private void DrawManIcon(Geopoint pos)
         {
-            const int carZIndewxz = 4;
+            const int manZIndewxz = 4;
 
-            var carIcon = myMap.MapElements.OfType<MapIcon>().FirstOrDefault(p => p.ZIndex == carZIndewxz);
-            if (carIcon == null)
+            var manIcon = myMap.MapElements.OfType<MapIcon>().FirstOrDefault(p => p.ZIndex == manZIndewxz);
+            if (manIcon == null)
             {
-                carIcon = new MapIcon
+                manIcon = new MapIcon
                 {
                     NormalizedAnchorPoint = new Point(0.5, 0.5),
-                    ZIndex = carZIndewxz
+                    ZIndex = manZIndewxz
                 };
-                carIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/liveTile150x.png"));
-                myMap.MapElements.Add(carIcon);
+                manIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/myPos.png"));
+                myMap.MapElements.Add(manIcon);
             }
-            carIcon.Location = pos;
+            manIcon.Location = pos;
         }
 
         private void TakeNote_Click(object sender, RoutedEventArgs e)

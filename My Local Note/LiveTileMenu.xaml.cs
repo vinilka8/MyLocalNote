@@ -25,36 +25,19 @@ namespace My_Local_Note
     /// </summary>
     public sealed partial class LiveTileMenu : Page
     {
-
-        
-
         public LiveTileMenu()
         {
-            this.InitializeComponent();
-
-            
-        }
-
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            
+            this.InitializeComponent(); 
         }
 
         private void CycleTile_Click(object sender, RoutedEventArgs e)
         {
-
-
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
             var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
 
             var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
-            tileImage.SetAttribute("src", "ms-appx:///Assets/liveTile150x.png");
+            tileImage.SetAttribute("src", "ms-appx:///Assets/logo150x150.png");
             var tileNotification = new TileNotification(tileXml);
             TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
 
@@ -84,7 +67,7 @@ namespace My_Local_Note
                    "secondaryTileId",
                    "Text shown on tile",
                    "secondTileArguments",
-                   new Uri("ms-appx:///Assets/liveTile150x.png", UriKind.Absolute),
+                   new Uri("ms-appx:///Assets/logo150x150.png", UriKind.Absolute),
                    TileSize.Square150x150);
 
             bool isPinned = await secondaryTile.RequestCreateAsync();
