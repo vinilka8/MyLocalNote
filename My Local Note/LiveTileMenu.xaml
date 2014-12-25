@@ -7,8 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="World" x:Name="BackHome" Click="BackHome_Click" Label="Back Home"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 
     <Grid>
-
+        <Grid>
+            <GridView>
+                <TextBlock TextWrapping="Wrap"                        
+            Text="Choose you tile you want to shows up in start menu!" FontSize="30" VerticalAlignment="Top" Height="101" Width="396" />
+                <Button x:Name="CycleTile" Content="Update to Cycle tile" VerticalAlignment="Top" Height="59" Width="252" FontSize="24" Click="CycleTile_Click"/>
+                <Button x:Name="BadgeTile" Content="Update to Badge tile"  VerticalAlignment="Top" Height="59" Width="245" FontSize="24" Click="BadgeTile_Click"/>
+                <Button x:Name="SecondaryTile" Content="Update to Secondary tile"  VerticalAlignment="Top" Height="59" Width="301" FontSize="24" Click="SecondaryTile_Click"/>
+            </GridView>
+        </Grid>
     </Grid>
 </Page>

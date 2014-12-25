@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,9 +25,14 @@ namespace My_Local_Note
     /// </summary>
     public sealed partial class LiveTileMenu : Page
     {
+
+        
+
         public LiveTileMenu()
         {
             this.InitializeComponent();
+
+            
         }
 
         /// <summary>
@@ -34,6 +42,57 @@ namespace My_Local_Note
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
+        }
+
+        private void CycleTile_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+            var tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+
+            var tileImage = tileXml.GetElementsByTagName("image")[0] as XmlElement;
+            tileImage.SetAttribute("src", "ms-appx:///Assets/liveTile150x.png");
+            var tileNotification = new TileNotification(tileXml);
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+
+            tileImage.SetAttribute("src", "ms-appx:///Assets/Logo.scale-240.png");
+            tileNotification = new TileNotification(tileXml);
+            tileNotification.Tag = "myTag";
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+        }
+
+        private void BadgeTile_Click(object sender, RoutedEventArgs e)
+        {
+            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+            var badgeXML = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
+            var badge = badgeXML.SelectSingleNode("/badge") as XmlElement;
+            badge.SetAttribute("value", "11");
+            var badgeNotification = new BadgeNotification(badgeXML);
+            BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badgeNotification);
+
+        }
+
+
+        //JUST ONE WORKED PART :((( OTHER JUST IGNOR ME :(
+        async void SecondaryTile_Click(object sender, RoutedEventArgs e)
+        {
+
+            var secondaryTile = new SecondaryTile(
+                   "secondaryTileId",
+                   "Text shown on tile",
+                   "secondTileArguments",
+                   new Uri("ms-appx:///Assets/liveTile150x.png", UriKind.Absolute),
+                   TileSize.Square150x150);
+
+            bool isPinned = await secondaryTile.RequestCreateAsync();
+        }
+
+        private void BackHome_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

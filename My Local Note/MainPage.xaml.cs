@@ -27,7 +27,7 @@ namespace My_Local_Note
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
+        // PhoneProductId="d25ccc27-4f2c-4dba-b315-97764ae1fc49"
         Geolocator geolocator;
 
         public MainPage()
@@ -105,7 +105,7 @@ namespace My_Local_Note
                     NormalizedAnchorPoint = new Point(0.5, 0.5),
                     ZIndex = carZIndewxz
                 };
-                carIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/myPosition.png"));
+                carIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/liveTile150x.png"));
                 myMap.MapElements.Add(carIcon);
             }
             carIcon.Location = pos;

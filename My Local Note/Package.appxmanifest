@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="46543vinilka8.MyLocalNote" Publisher="CN=28D23F75-7FDC-4407-A5C7-F41526357693" Version="1.1.0.1" />
-  <mp:PhoneIdentity PhoneProductId="d25ccc27-4f2c-4dba-b315-97764ae1fc49" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="46543vinilka8.MyLocalNote" Publisher="CN=28D23F75-7FDC-4407-A5C7-F41526357693" Version="1.1.0.3" />
+  <mp:PhoneIdentity PhoneProductId="dc835959-9a04-4822-a5d0-4463f7be644a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>My Local Note</DisplayName>
     <PublisherDisplayName>vinilka8</PublisherDisplayName>
