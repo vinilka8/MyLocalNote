@@ -52,7 +52,7 @@ namespace My_Local_Note
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
             var badgeXML = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
             var badge = badgeXML.SelectSingleNode("/badge") as XmlElement;
-            badge.SetAttribute("value", "11");
+            badge.SetAttribute("src", "ms-appx:///Assets/logoBadge58x58.scale-240.png");
             var badgeNotification = new BadgeNotification(badgeXML);
             BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badgeNotification);
 

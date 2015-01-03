@@ -39,8 +39,7 @@ namespace My_Local_Note
             MapService.ServiceToken = "zzA11mz1oON29_nJ4B6OEQ";
             this.NavigationCacheMode = NavigationCacheMode.Required;
             geolocator = new Geolocator();
-            updateMyMap();
-            
+            updateMyMap();           
         }
   
         /// <summary>
@@ -76,6 +75,7 @@ namespace My_Local_Note
 
         }
 
+
         private async void myLocation_Click(object sender, RoutedEventArgs e)
         {               
             try
@@ -94,11 +94,19 @@ namespace My_Local_Note
                 await myMap.TrySetViewAsync(position.Coordinate.Point, 17D);
                 //Geoposition g = await geolocator.GetGeopositionAsync().AsTask(token);
                 var pos = new Geopoint(new BasicGeoposition { Latitude = position.Coordinate.Point.Position.Latitude, Longitude = position.Coordinate.Point.Position.Longitude });
-                
+                MapLocationFinderResult result = await MapLocationFinder.FindLocationsAtAsync(pos);
+                if (result.Status == MapLocationFinderStatus.Success)
+                {
+                    TName.Text = "Town: " + result.Locations[0].Address.Town;
+                }
+
+
                 DrawManIcon(pos);
 
                 locator.PositionChanged += Location_PositionChanged;
                 mySlider.Value = myMap.ZoomLevel;
+
+               
             }
             catch
             {
