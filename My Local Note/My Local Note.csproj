@@ -91,13 +91,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DataSource.cs" />
+    <Compile Include="DataModel\ManeuverDescription.cs" />
     <Compile Include="LiveTileMenu.xaml.cs">
       <DependentUpon>LiveTileMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ManeuverDescription.cs" />
     <Compile Include="NotePage.xaml.cs">
       <DependentUpon>NotePage.xaml</DependentUpon>
     </Compile>

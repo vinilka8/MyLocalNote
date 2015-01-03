@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
-namespace My_Local_Note
+namespace My_Local_Note.DataModel
 {
     class ManeuverDescription
     {
         public string Id { get; set; }
-
         public Geopoint Location { get; set; }
-
         public string Description { get; set; }
     }
 }
